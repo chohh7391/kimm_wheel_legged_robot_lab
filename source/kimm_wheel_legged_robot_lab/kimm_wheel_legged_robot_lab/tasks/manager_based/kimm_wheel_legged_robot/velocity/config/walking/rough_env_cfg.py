@@ -3,15 +3,14 @@
 
 from isaaclab.utils import configclass
 
-import isaaclab_tasks.manager_based.kimm_wheel_legged_robot.velocity.mdp as mdp
-from isaaclab_tasks.manager_based.kimm_wheel_legged_robot.velocity.velocity_env_cfg import (
+import kimm_wheel_legged_robot_lab.tasks.manager_based.kimm_wheel_legged_robot.velocity.mdp as mdp
+from kimm_wheel_legged_robot_lab.assets import KIMM_WHEEL_LEGGED_ROBOT_CFG
+
+from kimm_wheel_legged_robot_lab.tasks.manager_based.kimm_wheel_legged_robot.velocity.velocity_env_cfg import (
     ActionsCfg,
     LocomotionVelocityRoughEnvCfg,
     RewardsCfg,
 )
-
-import kimm_wheel_legged_robot_lab.tasks.manager_based.kimm_wheel_legged_robot.velocity.mdp as mdp
-from kimm_wheel_legged_robot_lab.assets import KIMM_WHEEL_LEGGED_ROBOT_CFG
 
 ##
 # Pre-defined configs
