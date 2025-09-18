@@ -1,14 +1,13 @@
-# Template for Isaac Lab Projects
+# Kimm Wheel Legged Robot Lab
 
 ## Overview
 
-This project/repository serves as a template for building projects or extensions based on Isaac Lab.
-It allows you to develop in an isolated environment, outside of the core Isaac Lab repository.
+This repository provides an Isaac Lab environment for training a wheel-legged humanoid robot in walking, driving, and mode-switching.
 
 **Key Features:**
 
-- `Isolation` Work outside the core Isaac Lab repository, ensuring that your development efforts remain self-contained.
-- `Flexibility` This template is set up to allow your code to be run as an extension in Omniverse.
+- `Driving & Walking` This repository contains RL environment for driving and walking with special humanoid robot
+- `Mode Change` We also plan to include training for mode-switching between driving and walking.
 
 **Keywords:** extension, template, isaaclab
 
@@ -29,7 +28,7 @@ It allows you to develop in an isolated environment, outside of the core Isaac L
 
     - Listing the available tasks:
 
-        Note: It the task name changes, it may be necessary to update the search pattern `"Template-"`
+        Note: It the task name changes, it may be necessary to update the search pattern `"Kimm-Wheel-Legged_Robot"`
         (in the `scripts/list_envs.py` file) so that it can be listed.
 
         ```bash
