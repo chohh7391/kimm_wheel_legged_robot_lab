@@ -28,7 +28,7 @@ This repository provides an Isaac Lab environment for training a wheel-legged hu
 
     - Listing the available tasks:
 
-        Note: It the task name changes, it may be necessary to update the search pattern `"Kimm-Wheel-Legged_Robot"`
+        Note: It the task name changes, it may be necessary to update the search pattern `"Kimm-Wheel-Legged_Robot-"`
         (in the `scripts/list_envs.py` file) so that it can be listed.
 
         ```bash
