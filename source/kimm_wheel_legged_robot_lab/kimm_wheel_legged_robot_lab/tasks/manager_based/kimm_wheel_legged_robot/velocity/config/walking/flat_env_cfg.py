@@ -25,5 +25,5 @@ class KimmWheelLeggedRobotWalkingFlatEnvCfg(KimmWheelLeggedRobotWalkingRoughEnvC
         self.curriculum.terrain_levels = None
 
         # If the weight of rewards is 0, set rewards to None
-        if self.__class__.__name__ == "KimmWheelLeggedRobotFlatEnvCfg":
+        if self.__class__.__name__ == "KimmWheelLeggedRobotWalkingFlatEnvCfg":
             self.disable_zero_weight_rewards()

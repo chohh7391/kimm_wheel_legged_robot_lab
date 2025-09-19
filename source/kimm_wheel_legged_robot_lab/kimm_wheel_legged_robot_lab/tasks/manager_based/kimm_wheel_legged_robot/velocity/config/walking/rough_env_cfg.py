@@ -126,7 +126,7 @@ class KimmWheelLeggedRobotWalkingRoughEnvCfg(LocomotionVelocityRoughEnvCfg):
         self.rewards.upward.weight = 1.0
 
         # If the weight of rewards is 0, set rewards to None
-        if self.__class__.__name__ == "KimmWheelLeggedRobotRoughEnvCfg":
+        if self.__class__.__name__ == "KimmWheelLeggedRobotWalkingRoughEnvCfg":
             self.disable_zero_weight_rewards()
 
         # ------------------------------Terminations------------------------------
