@@ -32,7 +32,7 @@ gym.register(
     disable_env_checker=True,
     kwargs={
         "env_cfg_entry_point": f"{__name__}.rough_env_fixed_hip_cfg:KimmWheelLeggedRobotDrivingFixedHipRoughEnvCfg",
-        "rsl_rl_cfg_entry_point": f"{agents.__name__}.rsl_rl_ppo_cfg:KimmWheelLeggedRobotDrivingRoughPPORunnerCfg",
+        "rsl_rl_cfg_entry_point": f"{agents.__name__}.rsl_rl_ppo_cfg:KimmWheelLeggedRobotDrivingFixedHipRoughPPORunnerCfg",
     },
 )
 
@@ -42,7 +42,7 @@ gym.register(
     disable_env_checker=True,
     kwargs={
         "env_cfg_entry_point": f"{__name__}.rough_env_fixed_hip_ankle_cfg:KimmWheelLeggedRobotDrivingFixedHipAnkleRoughEnvCfg",
-        "rsl_rl_cfg_entry_point": f"{agents.__name__}.rsl_rl_ppo_cfg:KimmWheelLeggedRobotDrivingRoughPPORunnerCfg",
+        "rsl_rl_cfg_entry_point": f"{agents.__name__}.rsl_rl_ppo_cfg:KimmWheelLeggedRobotDrivingFixedHipAnkleRoughPPORunnerCfg",
     },
 )
 
@@ -66,7 +66,7 @@ gym.register(
     disable_env_checker=True,
     kwargs={
         "env_cfg_entry_point": f"{__name__}.flat_env_fixed_hip_cfg:KimmWheelLeggedRobotDrivingFixedHipFlatEnvCfg",
-        "rsl_rl_cfg_entry_point": f"{agents.__name__}.rsl_rl_ppo_cfg:KimmWheelLeggedRobotDrivingFlatPPORunnerCfg",
+        "rsl_rl_cfg_entry_point": f"{agents.__name__}.rsl_rl_ppo_cfg:KimmWheelLeggedRobotDrivingFixedHipFlatPPORunnerCfg",
     },
 )
 
@@ -76,6 +76,6 @@ gym.register(
     disable_env_checker=True,
     kwargs={
         "env_cfg_entry_point": f"{__name__}.flat_env_fixed_hip_ankle_cfg:KimmWheelLeggedRobotDrivingFixedHipAnkleFlatEnvCfg",
-        "rsl_rl_cfg_entry_point": f"{agents.__name__}.rsl_rl_ppo_cfg:KimmWheelLeggedRobotDrivingFlatPPORunnerCfg",
+        "rsl_rl_cfg_entry_point": f"{agents.__name__}.rsl_rl_ppo_cfg:KimmWheelLeggedRobotDrivingFixedHipAnkleFlatPPORunnerCfg",
     },
 )

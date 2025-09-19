@@ -4,13 +4,13 @@
 from isaaclab.utils import configclass
 from isaaclab_rl.rsl_rl import RslRlOnPolicyRunnerCfg, RslRlPpoActorCriticCfg, RslRlPpoAlgorithmCfg
 
-
+# Configuration for PPO training on rough terrain
 @configclass
 class KimmWheelLeggedRobotDrivingRoughPPORunnerCfg(RslRlOnPolicyRunnerCfg):
     num_steps_per_env = 24
     max_iterations = 200000
     save_interval = 100
-    experiment_name = "kimm_wheel_legged_robot_driving_rough"
+    experiment_name = "kimm_wheel_legged_robot/driving/rough"
     empirical_normalization = False
     policy = RslRlPpoActorCriticCfg(
         init_noise_std=1.0,
@@ -33,11 +33,40 @@ class KimmWheelLeggedRobotDrivingRoughPPORunnerCfg(RslRlOnPolicyRunnerCfg):
         max_grad_norm=1.0,
     )
 
+@configclass
+class KimmWheelLeggedRobotDrivingFixedHipRoughPPORunnerCfg(KimmWheelLeggedRobotDrivingRoughPPORunnerCfg):
+    def __post_init__(self):
+        super().__post_init__()
+        self.experiment_name = "kimm_wheel_legged_robot/driving/fixed_hip/rough"
 
+@configclass
+class KimmWheelLeggedRobotDrivingFixedHipAnkleRoughPPORunnerCfg(KimmWheelLeggedRobotDrivingRoughPPORunnerCfg):
+    def __post_init__(self):
+        super().__post_init__()
+        self.experiment_name = "kimm_wheel_legged_robot/driving/fixed_hip_ankle/rough"
+
+
+# Configuration for PPO training on flat terrain
 @configclass
 class KimmWheelLeggedRobotDrivingFlatPPORunnerCfg(KimmWheelLeggedRobotDrivingRoughPPORunnerCfg):
     def __post_init__(self):
         super().__post_init__()
 
         self.max_iterations = 100000
-        self.experiment_name = "kimm_wheel_legged_robot_driving_flat"
+        self.experiment_name = "kimm_wheel_legged_robot/driving/flat"
+
+@configclass
+class KimmWheelLeggedRobotDrivingFixedHipFlatPPORunnerCfg(KimmWheelLeggedRobotDrivingRoughPPORunnerCfg):
+    def __post_init__(self):
+        super().__post_init__()
+
+        self.max_iterations = 100000
+        self.experiment_name = "kimm_wheel_legged_robot/driving/fixed_hip/flat"
+
+@configclass
+class KimmWheelLeggedRobotDrivingFixedHipAnkleFlatPPORunnerCfg(KimmWheelLeggedRobotDrivingRoughPPORunnerCfg):
+    def __post_init__(self):
+        super().__post_init__()
+
+        self.max_iterations = 100000
+        self.experiment_name = "kimm_wheel_legged_robot/driving/fixed_hip_ankle/flat"
