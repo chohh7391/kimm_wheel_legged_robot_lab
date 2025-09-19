@@ -19,6 +19,7 @@ from kimm_wheel_legged_robot_lab.tasks.manager_based.kimm_wheel_legged_robot.vel
 @configclass
 class KimmWheelLeggedRobotRoughEnvCfg(LocomotionVelocityRoughEnvCfg):
     base_link_name = "base_link"
+    body_link_name = "torso_link"
     foot_link_name = ".*_foot_link"
 
     def __post_init__(self):
@@ -171,7 +172,7 @@ class KimmWheelLeggedRobotRoughEnvCfg(LocomotionVelocityRoughEnvCfg):
             self.disable_zero_weight_rewards()
 
         # ------------------------------Terminations------------------------------
-        self.terminations.illegal_contact.params["sensor_cfg"].body_names = [self.base_link_name]
+        self.terminations.illegal_contact.params["sensor_cfg"].body_names = "torso_link"
 
         # ------------------------------Curriculums------------------------------
         # self.curriculum.command_levels.params["range_multiplier"] = (0.2, 1.0)

@@ -9,7 +9,7 @@ p.setGravity(0, 0, -9.81)
 
 # Load URDF
 robot_id = p.loadURDF(
-    "/home/home/IsaacLab/source/isaaclab_tasks/isaaclab_tasks/manager_based/kimm_wheel_legged_robot/assets/kimm_wheel_legged_robot_description/urdf/kimm_wheel_legged_robot_isaac.urdf",
+    "/home/home/kimm_wheel_legged_robot_lab/source/kimm_wheel_legged_robot_lab/kimm_wheel_legged_robot_lab/assets/kimm_wheel_legged_robot_description/urdf/kimm_wheel_legged_robot.urdf",
     [0, 0, 0], useFixedBase=True)
 
 p.resetDebugVisualizerCamera(cameraDistance=1.5,
