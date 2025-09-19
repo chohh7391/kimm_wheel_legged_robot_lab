@@ -6,11 +6,11 @@ from isaaclab_rl.rsl_rl import RslRlOnPolicyRunnerCfg, RslRlPpoActorCriticCfg, R
 
 
 @configclass
-class KimmWheelLeggedRobotLeggedRoughPPORunnerCfg(RslRlOnPolicyRunnerCfg):
+class KimmWheelLeggedRobotWalkingRoughPPORunnerCfg(RslRlOnPolicyRunnerCfg):
     num_steps_per_env = 24
-    max_iterations = 300000
+    max_iterations = 200000
     save_interval = 1000
-    experiment_name = "kimm_wheel_legged_robot_legged_rough"
+    experiment_name = "kimm_wheel_legged_robot/walking/rough"
     empirical_normalization = False
     policy = RslRlPpoActorCriticCfg(
         init_noise_std=1.0,
@@ -35,9 +35,9 @@ class KimmWheelLeggedRobotLeggedRoughPPORunnerCfg(RslRlOnPolicyRunnerCfg):
 
 
 @configclass
-class KimmWheelLeggedRobotLeggedFlatPPORunnerCfg(KimmWheelLeggedRobotLeggedRoughPPORunnerCfg):
+class KimmWheelLeggedRobotWalkingFlatPPORunnerCfg(KimmWheelLeggedRobotWalkingRoughPPORunnerCfg):
     def __post_init__(self):
         super().__post_init__()
 
         self.max_iterations = 100000
-        self.experiment_name = "kimm_wheel_legged_robot_legged_flat"
+        self.experiment_name = "kimm_wheel_legged_robot/walking/flat"

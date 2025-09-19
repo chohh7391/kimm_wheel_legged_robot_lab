@@ -17,7 +17,7 @@ from kimm_wheel_legged_robot_lab.tasks.manager_based.kimm_wheel_legged_robot.vel
 ##
 
 @configclass
-class KimmWheelLeggedRobotRoughEnvCfg(LocomotionVelocityRoughEnvCfg):
+class KimmWheelLeggedRobotWalkingRoughEnvCfg(LocomotionVelocityRoughEnvCfg):
     base_link_name = "torso_link"
     foot_link_name = ".*_foot_link"
 

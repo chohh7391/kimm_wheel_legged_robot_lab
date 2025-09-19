@@ -3,11 +3,11 @@
 
 from isaaclab.utils import configclass
 
-from .rough_env_cfg import KimmWheelLeggedRobotRoughEnvCfg
+from .rough_env_cfg import KimmWheelLeggedRobotWalkingRoughEnvCfg
 
 
 @configclass
-class KimmWheelLeggedRobotFlatEnvCfg(KimmWheelLeggedRobotRoughEnvCfg):
+class KimmWheelLeggedRobotWalkingFlatEnvCfg(KimmWheelLeggedRobotWalkingRoughEnvCfg):
     def __post_init__(self):
         # post init of parent
         super().__post_init__()

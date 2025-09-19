@@ -20,8 +20,8 @@ gym.register(
     entry_point="isaaclab.envs:ManagerBasedRLEnv",
     disable_env_checker=True,
     kwargs={
-        "env_cfg_entry_point": f"{__name__}.rough_env_cfg:KimmWheelLeggedRobotRoughEnvCfg",
-        "rsl_rl_cfg_entry_point": f"{agents.__name__}.rsl_rl_ppo_cfg:KimmWheelLeggedRobotLeggedRoughPPORunnerCfg",
+        "env_cfg_entry_point": f"{__name__}.rough_env_cfg:KimmWheelLeggedRobotWalkingRoughEnvCfg",
+        "rsl_rl_cfg_entry_point": f"{agents.__name__}.rsl_rl_ppo_cfg:KimmWheelLeggedRobotWalkingRoughPPORunnerCfg",
     },
 )
 
@@ -30,7 +30,7 @@ gym.register(
     entry_point="isaaclab.envs:ManagerBasedRLEnv",
     disable_env_checker=True,
     kwargs={
-        "env_cfg_entry_point": f"{__name__}.flat_env_cfg:KimmWheelLeggedRobotFlatEnvCfg",
-        "rsl_rl_cfg_entry_point": f"{agents.__name__}.rsl_rl_ppo_cfg:KimmWheelLeggedRobotLeggedFlatPPORunnerCfg",
+        "env_cfg_entry_point": f"{__name__}.flat_env_cfg:KimmWheelLeggedRobotWalkingFlatEnvCfg",
+        "rsl_rl_cfg_entry_point": f"{agents.__name__}.rsl_rl_ppo_cfg:KimmWheelLeggedRobotWalkingFlatPPORunnerCfg",
     },
 )
