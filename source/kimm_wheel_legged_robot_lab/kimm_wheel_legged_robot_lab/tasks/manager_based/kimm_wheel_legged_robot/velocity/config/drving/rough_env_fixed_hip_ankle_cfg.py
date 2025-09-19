@@ -51,14 +51,14 @@ class KimmWheelLeggedRobotDrivingFixedHipAnkleRoughEnvCfg(KimmWheelLeggedRobotDr
 
         # ------------------------------Sence------------------------------
         self.scene.robot = KIMM_WHEEL_LEGGED_ROBOT_DRIVING_MODE_FIXED_HIP_ANKLE_CFG.replace(prim_path="{ENV_REGEX_NS}/Robot")
-
+        
         # ------------------------------Observations------------------------------
         # equal to parent
 
         # ------------------------------Actions------------------------------
         # reduce action scale
         self.actions.joint_pos.scale = {
-            ".*": 0.25 # hip rool joint is fixed -> no need to control
+            ".*": 0.25 # hip roll joint is fixed -> no need to control
         }
         self.actions.joint_vel.scale = 5.0
         self.actions.joint_pos.clip = {".*": (-100.0, 100.0)}

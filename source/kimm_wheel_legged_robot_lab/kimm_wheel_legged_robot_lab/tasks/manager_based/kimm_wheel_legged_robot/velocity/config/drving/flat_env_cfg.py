@@ -5,7 +5,6 @@ from isaaclab.utils import configclass
 
 from .rough_env_cfg import KimmWheelLeggedRobotDrivingRoughEnvCfg
 
-
 @configclass
 class KimmWheelLeggedRobotDrivingFlatEnvCfg(KimmWheelLeggedRobotDrivingRoughEnvCfg):
     def __post_init__(self):

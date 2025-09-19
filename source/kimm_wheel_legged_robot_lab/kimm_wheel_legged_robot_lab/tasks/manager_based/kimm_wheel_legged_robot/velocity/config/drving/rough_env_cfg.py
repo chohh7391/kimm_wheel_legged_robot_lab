@@ -1,6 +1,7 @@
 # Copyright (c) 2024-2025 Ziqi Fan
 # SPDX-License-Identifier: Apache-2.0
 
+import isaaclab.terrains as terrain_gen
 from isaaclab.managers import RewardTermCfg as RewTerm
 from isaaclab.managers import SceneEntityCfg
 from isaaclab.utils import configclass
@@ -16,6 +17,27 @@ from kimm_wheel_legged_robot_lab.tasks.manager_based.kimm_wheel_legged_robot.vel
 # Pre-defined configs
 ##
 from kimm_wheel_legged_robot_lab.assets import KIMM_WHEEL_LEGGED_ROBOT_DRIVING_MODE_CFG  # isort: skip
+
+# use other terrain
+ROUGH_ROAD_CFG = terrain_gen.TerrainGeneratorCfg(
+    size=(8.0, 8.0),
+    border_width=20.0,
+    num_rows=10,
+    num_cols=20,
+    horizontal_scale=0.1,
+    vertical_scale=0.005,
+    slope_threshold=0.75,
+    difficulty_range=(0.0, 1.0),
+    use_cache=False,
+    sub_terrains={
+        "flat": terrain_gen.MeshPlaneTerrainCfg(
+            proportion=0.4,
+        ),
+        "random_rough": terrain_gen.HfRandomUniformTerrainCfg(
+            proportion=0.5, noise_range=(0.01, 0.05), noise_step=0.02, border_width=0.25
+        ),
+    },
+)
 
 @configclass
 class KimmWheelLeggedRobotDrivingActionsCfg(ActionsCfg):
@@ -88,6 +110,9 @@ class KimmWheelLeggedRobotDrivingRoughEnvCfg(LocomotionVelocityRoughEnvCfg):
         self.scene.robot = KIMM_WHEEL_LEGGED_ROBOT_DRIVING_MODE_CFG.replace(prim_path="{ENV_REGEX_NS}/Robot")
         self.scene.height_scanner.prim_path = "{ENV_REGEX_NS}/Robot/" + self.base_link_name
         self.scene.height_scanner_base.prim_path = "{ENV_REGEX_NS}/Robot/" + self.base_link_name
+        self.scene.terrain.terrain_type = "generator"
+        self.scene.terrain.terrain_generator = ROUGH_ROAD_CFG
+
 
         # ------------------------------Observations------------------------------
         self.observations.policy.joint_pos.func = mdp.joint_pos_rel_without_wheel
