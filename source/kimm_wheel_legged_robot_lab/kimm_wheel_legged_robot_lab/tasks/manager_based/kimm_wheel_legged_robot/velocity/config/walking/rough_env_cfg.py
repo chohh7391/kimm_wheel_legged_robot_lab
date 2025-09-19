@@ -18,8 +18,7 @@ from kimm_wheel_legged_robot_lab.tasks.manager_based.kimm_wheel_legged_robot.vel
 
 @configclass
 class KimmWheelLeggedRobotRoughEnvCfg(LocomotionVelocityRoughEnvCfg):
-    base_link_name = "base_link"
-    body_link_name = "torso_link"
+    base_link_name = "torso_link"
     foot_link_name = ".*_foot_link"
 
     def __post_init__(self):
@@ -48,41 +47,6 @@ class KimmWheelLeggedRobotRoughEnvCfg(LocomotionVelocityRoughEnvCfg):
         # self.actions.joint_pos.joint_names = self.joint_names
 
         # ------------------------------Events------------------------------
-        self.events.randomize_reset_base.params = {
-            # "pose_range": {
-            #     "x": (-0.5, 0.5),
-            #     "y": (-0.5, 0.5),
-            #     "z": (0.0, 0.2),
-            #     "roll": (-3.14, 3.14),
-            #     "pitch": (-3.14, 3.14),
-            #     "yaw": (-3.14, 3.14),
-            # },
-            # "velocity_range": {
-            #     "x": (-0.5, 0.5),
-            #     "y": (-0.5, 0.5),
-            #     "z": (-0.5, 0.5),
-            #     "roll": (-0.5, 0.5),
-            #     "pitch": (-0.5, 0.5),
-            #     "yaw": (-0.5, 0.5),
-            # },
-            "pose_range": {
-                "x": (0.0, 0.0),
-                "y": (0.0, 0.0),
-                "z": (0.0, 0.0),
-                "roll": (0.0, 0.0),
-                "pitch": (0.0, 0.0),
-                "yaw": (0.0, 0.0),
-            },
-            "velocity_range": {
-                "x": (0.0, 0.0),
-                "y": (0.0, 0.0),
-                "z": (0.0, 0.0),
-                "roll": (0.0, 0.0),
-                "pitch": (0.0, 0.0),
-                "yaw": (0.0, 0.0),
-            },
-        }
-        
         self.events.randomize_rigid_body_mass_base.params["asset_cfg"].body_names = [self.base_link_name]
         self.events.randomize_rigid_body_mass_others.params["asset_cfg"].body_names = [
             f"^(?!.*{self.base_link_name}).*"
@@ -99,7 +63,7 @@ class KimmWheelLeggedRobotRoughEnvCfg(LocomotionVelocityRoughEnvCfg):
         self.rewards.ang_vel_xy_l2.weight = -0.1
         self.rewards.flat_orientation_l2.weight = -0.2
         self.rewards.base_height_l2.weight = 0
-        self.rewards.base_height_l2.params["target_height"] = 0
+        self.rewards.base_height_l2.params["target_height"] = 0.0
         self.rewards.base_height_l2.params["asset_cfg"].body_names = [self.base_link_name]
         self.rewards.body_lin_acc_l2.weight = 0
         self.rewards.body_lin_acc_l2.params["asset_cfg"].body_names = [self.base_link_name]
@@ -108,18 +72,12 @@ class KimmWheelLeggedRobotRoughEnvCfg(LocomotionVelocityRoughEnvCfg):
         self.rewards.joint_torques_l2.weight = -1.5e-7
         self.rewards.joint_vel_l2.weight = 0
         self.rewards.joint_acc_l2.weight = -1.25e-7
-
-
-
         # TODO: If joint is not fixed, uncomment the following lines
         # self.rewards.create_joint_deviation_l1_rewterm("joint_deviation_hip_l1", -0.2, [".*_hip_yaw_joint", ".*_hip_roll_joint"])
         # # arm is not used for now
         # # TODO: If arms are used in the future, uncomment the following line
         # # self.rewards.create_joint_deviation_l1_rewterm("joint_deviation_arms_l1", -0.2, [".*_shoulder_.*", ".*_elbow"])
         # self.rewards.create_joint_deviation_l1_rewterm("joint_deviation_torso_l1", -0.1, ["torso_joint"])
-
-
-
         self.rewards.joint_pos_limits.weight = -0.5
         self.rewards.joint_vel_limits.weight = 0
         self.rewards.joint_power.weight = 0
@@ -172,7 +130,7 @@ class KimmWheelLeggedRobotRoughEnvCfg(LocomotionVelocityRoughEnvCfg):
             self.disable_zero_weight_rewards()
 
         # ------------------------------Terminations------------------------------
-        self.terminations.illegal_contact.params["sensor_cfg"].body_names = "torso_link"
+        self.terminations.illegal_contact.params["sensor_cfg"].body_names = [self.base_link_name]
 
         # ------------------------------Curriculums------------------------------
         # self.curriculum.command_levels.params["range_multiplier"] = (0.2, 1.0)

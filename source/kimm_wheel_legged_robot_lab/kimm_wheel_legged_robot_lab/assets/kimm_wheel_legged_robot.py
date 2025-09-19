@@ -29,7 +29,7 @@ ANKLE_JOINTS = [
 ]
 WHEEL_JOINTS = ["left_wheel_joint", "right_wheel_joint"]
 
-WALK_MODE_HEIGHT = 0.775
+WALKING_MODE_HEIGHT = 0.775
 
 # Robot Configurations
 KIMM_WHEEL_LEGGED_ROBOT_CFG = ArticulationCfg(
@@ -50,8 +50,7 @@ KIMM_WHEEL_LEGGED_ROBOT_CFG = ArticulationCfg(
         ),
     ),
     init_state=ArticulationCfg.InitialStateCfg(
-        pos=(0.0, 0.0, 0.0),
-        # rot=(0.5, 0.5, -0.5, -0.5), # w, x, y, z
+        pos=(0.0, 0.0, WALKING_MODE_HEIGHT),
         joint_pos={
             # Body
             "torso_joint": 0.0,
@@ -122,17 +121,14 @@ KIMM_WHEEL_LEGGED_ROBOT_CFG = ArticulationCfg(
             damping=10.0,
             friction=0.0,
         ),
-        "wheels": ImplicitActuatorCfg(
-            joint_names_expr=WHEEL_JOINTS,
-            effort_limit_sim=120.0,
-            velocity_limit_sim=5.02,
-            stiffness=200.0,
-            damping=5.0,
-            friction=0.0,
-        ),
+        # "wheels": ImplicitActuatorCfg(
+        #     joint_names_expr=WHEEL_JOINTS,
+        #     effort_limit_sim=120.0,
+        #     velocity_limit_sim=5.02,
+        #     stiffness=200.0,
+        #     damping=5.0,
+        #     friction=0.0,
+        # ),
         # foot wheels are passive -> free joints
     }
 )
-
-# Default to walk mode
-KIMM_WHEEL_LEGGED_ROBOT_CFG.init_state.pos = (0.0, 0.0, WALK_MODE_HEIGHT)

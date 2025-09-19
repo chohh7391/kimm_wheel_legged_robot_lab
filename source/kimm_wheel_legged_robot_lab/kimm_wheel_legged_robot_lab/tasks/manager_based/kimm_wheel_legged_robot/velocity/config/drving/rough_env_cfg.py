@@ -53,7 +53,7 @@ class KimmWheelLeggedRobotDrivingRoughEnvCfg(LocomotionVelocityRoughEnvCfg):
     rewards: KimmWheelLeggedRobotDrivingRewardsCfg = KimmWheelLeggedRobotDrivingRewardsCfg()
 
     base_link_name = "base_link"
-    foot_link_name = ".*_foot_link"
+    foot_link_name = ".*_foot_link" # foot_link is contained in knee_link
     wheel_link_name = [
         "left_wheel", "right_wheel",
         "left_foot_wheel_L",  "left_foot_wheel_R", "right_foot_wheel_L", "right_foot_wheel_R"
@@ -120,37 +120,21 @@ class KimmWheelLeggedRobotDrivingRoughEnvCfg(LocomotionVelocityRoughEnvCfg):
 
         # ------------------------------Events------------------------------
         self.events.randomize_reset_base.params = {
-            # "pose_range": {
-            #     "x": (-0.5, 0.5),
-            #     "y": (-0.5, 0.5),
-            #     "z": (0.0, 0.2),
-            #     "roll": (-3.14, 3.14),
-            #     "pitch": (-3.14, 3.14),
-            #     "yaw": (-3.14, 3.14),
-            # },
-            # "velocity_range": {
-            #     "x": (-0.5, 0.5),
-            #     "y": (-0.5, 0.5),
-            #     "z": (-0.5, 0.5),
-            #     "roll": (-0.5, 0.5),
-            #     "pitch": (-0.5, 0.5),
-            #     "yaw": (-0.5, 0.5),
-            # },
             "pose_range": {
-                "x": (0.0, 0.0),
-                "y": (0.0, 0.0),
-                "z": (0.0, 0.0),
-                "roll": (0.0, 0.0),
-                "pitch": (0.0, 0.0),
-                "yaw": (0.0, 0.0),
+                "x": (-0.5, 0.5),
+                "y": (-0.5, 0.5),
+                "z": (0.0, 0.1),
+                "roll": (-0.2, 0.2),
+                "pitch": (-0.2, 0.2),
+                "yaw": (-3.14, 3.14),
             },
             "velocity_range": {
-                "x": (0.0, 0.0),
-                "y": (0.0, 0.0),
-                "z": (0.0, 0.0),
-                "roll": (0.0, 0.0),
-                "pitch": (0.0, 0.0),
-                "yaw": (0.0, 0.0),
+                "x": (-0.5, 0.5),
+                "y": (-0.5, 0.5),
+                "z": (-0.5, 0.5),
+                "roll": (-0.5, 0.5),
+                "pitch": (-0.5, 0.5),
+                "yaw": (-0.5, 0.5),
             },
         }
         self.events.randomize_rigid_body_mass_base.params["asset_cfg"].body_names = [self.base_link_name]
@@ -162,13 +146,13 @@ class KimmWheelLeggedRobotDrivingRoughEnvCfg(LocomotionVelocityRoughEnvCfg):
 
         # ------------------------------Rewards------------------------------
         # General
-        self.rewards.is_terminated.weight = 0
+        self.rewards.is_terminated.weight = -200
 
         # Root penalties
         self.rewards.lin_vel_z_l2.weight = -2.0
         self.rewards.ang_vel_xy_l2.weight = -0.05
-        self.rewards.flat_orientation_l2.weight = 0
-        self.rewards.base_height_l2.weight = -0.5
+        self.rewards.flat_orientation_l2.weight = -0.1
+        self.rewards.base_height_l2.weight = -2.0
         self.rewards.base_height_l2.params["target_height"] = 0.45
         self.rewards.base_height_l2.params["asset_cfg"].body_names = [self.base_link_name]
         self.rewards.body_lin_acc_l2.weight = 0
@@ -190,15 +174,16 @@ class KimmWheelLeggedRobotDrivingRoughEnvCfg(LocomotionVelocityRoughEnvCfg):
         # self.rewards.create_joint_deviation_l1_rewterm("joint_deviation_hip_l1", -0.2, [".*_hip_joint"])
         self.rewards.joint_pos_limits.weight = -5.0
         self.rewards.joint_pos_limits.params["asset_cfg"].joint_names = self.leg_joint_names
-        self.rewards.joint_vel_limits.weight = 0
+        self.rewards.joint_vel_limits.weight = 0.0
         self.rewards.joint_vel_limits.params["asset_cfg"].joint_names = self.wheel_joint_names
         self.rewards.joint_power.weight = -2e-5
         self.rewards.joint_power.params["asset_cfg"].joint_names = self.leg_joint_names
         self.rewards.stand_still.weight = -2.0
-        self.rewards.stand_still.params["asset_cfg"].joint_names = self.body_joint_names + self.leg_joint_names
+        self.rewards.stand_still.params["asset_cfg"].joint_names = self.leg_joint_names + self.body_joint_names
         self.rewards.joint_pos_penalty.weight = -1.0
         self.rewards.joint_pos_penalty.params["asset_cfg"].joint_names = self.leg_joint_names
-        self.rewards.wheel_vel_penalty.weight = 0
+        # self.rewards.joint_pos_penalty.params["velocity_threshold"] = 100
+        self.rewards.wheel_vel_penalty.weight = -0.01
         self.rewards.wheel_vel_penalty.params["sensor_cfg"].body_names = [self.foot_link_name]
         self.rewards.wheel_vel_penalty.params["asset_cfg"].joint_names = self.wheel_joint_names
         self.rewards.joint_mirror.weight = -0.05
@@ -218,7 +203,7 @@ class KimmWheelLeggedRobotDrivingRoughEnvCfg(LocomotionVelocityRoughEnvCfg):
         self.rewards.undesired_contacts.weight = -1.0
         self.rewards.undesired_contacts.params["sensor_cfg"].body_names = [f"^(?!({'|'.join(self.wheel_link_name)})).*"]
         self.rewards.contact_forces.weight = -1.5e-4
-        self.rewards.contact_forces.params["sensor_cfg"].body_names = [self.foot_link_name]
+        self.rewards.contact_forces.params["sensor_cfg"].body_names = self.wheel_link_name
 
         # Velocity-tracking rewards
         self.rewards.track_lin_vel_xy_exp.weight = 3.0
@@ -227,25 +212,28 @@ class KimmWheelLeggedRobotDrivingRoughEnvCfg(LocomotionVelocityRoughEnvCfg):
         # Others
         self.rewards.feet_air_time.weight = 0
         self.rewards.feet_air_time.params["threshold"] = 0.5
-        self.rewards.feet_air_time.params["sensor_cfg"].body_names = [self.foot_link_name]
+        self.rewards.feet_air_time.params["sensor_cfg"].body_names = self.wheel_link_name
         self.rewards.feet_contact.weight = 0
-        self.rewards.feet_contact.params["sensor_cfg"].body_names = [self.foot_link_name]
+        self.rewards.feet_contact.params["sensor_cfg"].body_names = self.wheel_link_name
         self.rewards.feet_contact_without_cmd.weight = 0.1
         self.rewards.feet_contact_without_cmd.params["sensor_cfg"].body_names = self.wheel_link_name
-        self.rewards.feet_stumble.weight = 0
-        self.rewards.feet_stumble.params["sensor_cfg"].body_names = [self.foot_link_name]
-        self.rewards.feet_slide.weight = 0
-        self.rewards.feet_slide.params["sensor_cfg"].body_names = [self.foot_link_name]
-        self.rewards.feet_slide.params["asset_cfg"].body_names = [self.foot_link_name]
+        self.rewards.feet_stumble.weight = -0.1
+        self.rewards.feet_stumble.params["sensor_cfg"].body_names = self.wheel_link_name
+        self.rewards.feet_slide.weight = -0.1
+        self.rewards.feet_slide.params["sensor_cfg"].body_names = self.wheel_link_name
+        self.rewards.feet_slide.params["asset_cfg"].body_names = self.wheel_link_name
         self.rewards.feet_height.weight = 0
         self.rewards.feet_height.params["target_height"] = 0.1
-        self.rewards.feet_height.params["asset_cfg"].body_names = [self.foot_link_name]
+        self.rewards.feet_height.params["asset_cfg"].body_names = self.wheel_link_name
         self.rewards.feet_height_body.weight = 0
         self.rewards.feet_height_body.params["target_height"] = -0.2
-        self.rewards.feet_height_body.params["asset_cfg"].body_names = [self.foot_link_name]
+        self.rewards.feet_height_body.params["asset_cfg"].body_names = self.wheel_link_name
         self.rewards.feet_gait.weight = 0
-        self.rewards.feet_gait.params["synced_feet_pair_names"] = (("FL_foot", "RR_foot"), ("FR_foot", "RL_foot"))
+        self.rewards.feet_gait.params["synced_feet_pair_names"] = (("left_wheel", "right_wheel"), ("left_foot_wheel_L", "right_foot_wheel_R"), ("left_foot_wheel_R", "right_foot_wheel_L"))
         self.rewards.upward.weight = 1.0
+        self.rewards.feet_distance_y_exp.weight = -1.0
+        self.rewards.feet_distance_y_exp.params["stance_width"] = 0.6
+        self.rewards.feet_distance_y_exp.params["asset_cfg"].body_names = self.wheel_link_name
 
         # If the weight of rewards is 0, set rewards to None
         if self.__class__.__name__ == "KimmWheelLeggedRobotDrivingRoughEnvCfg":
@@ -259,6 +247,6 @@ class KimmWheelLeggedRobotDrivingRoughEnvCfg(LocomotionVelocityRoughEnvCfg):
         self.curriculum.command_levels = None
 
         # ------------------------------Commands------------------------------
-        # self.commands.base_velocity.ranges.lin_vel_x = (-1.5, 1.5)
-        # self.commands.base_velocity.ranges.lin_vel_y = (-1.0, 1.0)
-        # self.commands.base_velocity.ranges.ang_vel_z = (-1.0, 1.0)
+        self.commands.base_velocity.ranges.lin_vel_x = (-1.0, 1.0)
+        self.commands.base_velocity.ranges.lin_vel_y = (-1.0, 1.0)
+        self.commands.base_velocity.ranges.ang_vel_z = (-1.0, 1.0)

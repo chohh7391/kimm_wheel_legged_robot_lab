@@ -3,11 +3,11 @@
 
 from isaaclab.utils import configclass
 
-from .rough_env_fixed_hip_cfg import KimmWheelLeggedRobotDrivingRoughEnvCfg
+from .rough_env_fixed_hip_cfg import KimmWheelLeggedRobotDrivingFixedHipRoughEnvCfg
 
 
 @configclass
-class KimmWheelLeggedRobotDrivingFlatEnvCfg(KimmWheelLeggedRobotDrivingRoughEnvCfg):
+class KimmWheelLeggedRobotDrivingFixedHipFlatEnvCfg(KimmWheelLeggedRobotDrivingFixedHipRoughEnvCfg):
     def __post_init__(self):
         # post init of parent
         super().__post_init__()
@@ -25,5 +25,5 @@ class KimmWheelLeggedRobotDrivingFlatEnvCfg(KimmWheelLeggedRobotDrivingRoughEnvC
         self.curriculum.terrain_levels = None
 
         # If the weight of rewards is 0, set rewards to None
-        if self.__class__.__name__ == "KimmWheelLeggedRobotDrivingFlatEnvCfg":
+        if self.__class__.__name__ == "KimmWheelLeggedRobotDrivingFixedHipFlatEnvCfg":
             self.disable_zero_weight_rewards()
