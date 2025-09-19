@@ -34,7 +34,7 @@
   </link>
   <link name="torso_link">
     <inertial>
-      <origin xyz="0 0.5 0.05" rpy="0 0 0"/>
+      <origin xyz="0 0.4 0.05" rpy="0 0 0"/>
       <mass value="15.0"/>
       <inertia ixx="0.656" iyy="0.088" izz="0.156" ixy="0.0" ixz="0.0" iyz="0.113"/>
     </inertial>
